@@ -1,16 +1,8 @@
-import { useEffect, useState } from 'react'
 
-
-import * as services from '../../services/gameServices';
 import LatestGames from './LatestGame/LatestGame';
 
-const Home = () =>{
-  const [games, setGames] = useState([]);
-  useEffect(()=>{
-    services.getAll()
-    .then(data=>setGames(data));
-  
-  },[]);
+const Home = ({games}) =>{
+
   
 
     return(
@@ -27,7 +19,7 @@ const Home = () =>{
        {games.length > 0 
        ? games.map(x=><LatestGames key={x._id} game={x}/>)
        :<p className="no-articles">No games yet</p> }
-       
+
       </div>
     </section>
     )
