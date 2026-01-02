@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 const CatlogItem = ({games}) =>{
 
     return(
@@ -6,9 +8,9 @@ const CatlogItem = ({games}) =>{
           <img src={games.imageUrl} />
           <h6>{games.category}</h6>
           <h2>{games.title}</h2>
-          <a href="#" className="details-button">
+          <Link to={`/catalog/${games._id}`} className="details-button">
             Details
-          </a>
+          </Link>
         </div>
       </div>
     )

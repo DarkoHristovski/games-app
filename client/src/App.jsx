@@ -3,6 +3,7 @@ import Home from './components/Home/Home'
 import Catalog from './components/Catalog/Catalog'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
+import GameDetails from './components/GameDetails/GameDetails'
 
 import './App.css'
 import { useEffect, useState } from 'react'
@@ -33,6 +34,8 @@ function App() {
         <Route path='/login' element={<Login />}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/catalog' element={<Catalog games={games} />}/>
+        <Route path='/catalog/:gameId' element={<GameDetails/>}/>
+
         </Routes>
       
       </main>
