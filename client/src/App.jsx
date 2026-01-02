@@ -15,32 +15,53 @@ import { Route, Routes } from 'react-router-dom'
 
 function App() {
   const [games, setGames] = useState([]);
-  useEffect(()=>{
-    services.getAll()
-    .then(data=>setGames(data));
+ 
+  const addComment =(gameId, comment) =>{
+
+    setGames(state=>{
+      const game = state.find(x=> x._id == gameId);
+      const comments = game.comments || [];
+      comments.push(comment);
+
+      return[
+        ...state.filter(x=> x._id !== gameId),
+        {...game, comments:comments}
+      ]
+    })
+
+
+
+  }
   
-  },[]);
+
+
+
+  useEffect(() => {
+    services.getAll()
+      .then(data => setGames(data));
+
+  }, []);
 
 
 
   return (
     <>
 
-    <div id="box">
-    <Header/>
-      <main id="main-content">
-        <Routes>
-        <Route path='/' element={<Home games={games} />}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/register' element={<Register />}/>
-        <Route path='/catalog' element={<Catalog games={games} />}/>
-        <Route path='/catalog/:gameId' element={<GameDetails/>}/>
+      <div id="box">
+        <Header />
+        <main id="main-content">
+          <Routes>
+            <Route path='/' element={<Home games={games} />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/catalog' element={<Catalog games={games} />} />
+            <Route path='/catalog/:gameId' element={<GameDetails games={games} addComment={addComment}  />} />
 
-        </Routes>
-      
-      </main>
+          </Routes>
+
+        </main>
       </div>
-      </>
+    </>
 
   )
 }
