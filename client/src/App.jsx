@@ -1,21 +1,24 @@
+import { useEffect, useState} from 'react'
+import { Route, Routes,useNavigate } from 'react-router-dom'
+
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import Catalog from './components/Catalog/Catalog'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import GameDetails from './components/GameDetails/GameDetails'
-
-import './App.css'
-import { useEffect, useState } from 'react'
-
-
+import CreateGame from './components/CreateGame/CreateGame'
 import * as services from '../src/services/gameServices'
 
-import { Route, Routes } from 'react-router-dom'
+import './App.css'
+
 
 function App() {
   const [games, setGames] = useState([]);
  
+
+const navigate = useNavigate();
+
   const addComment =(gameId, comment) =>{
 
     setGames(state=>{
@@ -28,11 +31,20 @@ function App() {
         {...game, comments:comments}
       ]
     })
-
-
-
   }
   
+  const addGame=(newGameData)=>{
+const newGame={
+  _ownerId:crypto.randomUUID(),
+  _id:crypto.randomUUID(),
+  ...newGameData,
+}
+    setGames(state=>([
+      newGame,
+      ...state
+    ]))
+    navigate('/');
+  }
 
 
 
@@ -56,7 +68,7 @@ function App() {
             <Route path='/register' element={<Register />} />
             <Route path='/catalog' element={<Catalog games={games} />} />
             <Route path='/catalog/:gameId' element={<GameDetails games={games} addComment={addComment}  />} />
-
+            <Route path='/create' element={<CreateGame addGame={addGame} />} />
           </Routes>
 
         </main>

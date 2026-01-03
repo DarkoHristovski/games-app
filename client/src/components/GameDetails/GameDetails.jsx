@@ -2,10 +2,16 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const GameDetails = ({ games, addComment }) => {
+
   const [comment, setComment] = useState({
     username: "",
     comment: "",
   });
+
+  const [error, setError]= useState({
+    username:'',
+    comment:'',
+  })
 
   const { gameId } = useParams();
 
@@ -26,6 +32,26 @@ console.log(game)
     }));
   };
 
+  const validateUsername = (e) =>{
+
+  const username = e.target.value;
+  let errorMessage =''
+
+  if(username.length < 4){
+    errorMessage = 'Username must be longer than 4 characters'
+  }else if(username.length>10){
+    errorMessage='Username must be shorter than 10 characters'
+  }
+
+  
+    setError(state=>({
+      ...state,
+      username:errorMessage,
+    }))
+  
+
+  }
+
   return (
     <>
       {/*Details Page*/}
@@ -45,7 +71,7 @@ console.log(game)
             <ul>
             {game.comments?.map(x=>
  <li className="comment">
- <p>{x}</p>
+ <p key={game._id} >{x}</p>
 </li>
 
             )} 
@@ -76,7 +102,9 @@ console.log(game)
               placeholder="John Doe"
               onChange={onChange}
               value={comment.username}
+              onBlur={validateUsername}
             />
+            {error.username && <span style={{color:'red'}} >{error.username}</span>}
             <textarea
               name="comment"
               placeholder="Comment......"
