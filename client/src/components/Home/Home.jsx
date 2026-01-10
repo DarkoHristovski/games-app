@@ -3,7 +3,7 @@ import LatestGames from './LatestGame/LatestGame';
 
 const Home = ({games}) =>{
 
-  
+  console.log(games)
 
     return(
              

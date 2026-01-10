@@ -5,19 +5,29 @@ import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import Catalog from './components/Catalog/Catalog'
 import Login from './components/Login/Login'
+import Logout from './components/Logout/Logout'
 import Register from './components/Register/Register'
 import GameDetails from './components/GameDetails/GameDetails'
 import CreateGame from './components/CreateGame/CreateGame'
 import * as services from '../src/services/gameServices'
-
+import { AuthContext } from './context/AuthContext'
 import './App.css'
 
 
 function App() {
   const [games, setGames] = useState([]);
+  const [auth, setAuth] = useState({});
  
 
 const navigate = useNavigate();
+
+const userLogin = (authData) =>{
+setAuth(authData)
+}
+
+const userLogout = () =>{
+  setAuth({})
+  }
 
   const addComment =(gameId, comment) =>{
 
@@ -58,13 +68,14 @@ const newGame={
 
   return (
     <>
-
+<AuthContext.Provider value={{user:auth, userLogin, userLogout}}>
       <div id="box">
         <Header />
         <main id="main-content">
           <Routes>
             <Route path='/' element={<Home games={games} />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/logout' element={<Logout />} />
             <Route path='/register' element={<Register />} />
             <Route path='/catalog' element={<Catalog games={games} />} />
             <Route path='/catalog/:gameId' element={<GameDetails games={games} addComment={addComment}  />} />
@@ -73,6 +84,7 @@ const newGame={
 
         </main>
       </div>
+      </AuthContext.Provider>
     </>
 
   )
