@@ -1,19 +1,38 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import * as authService from "../../services/authService";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 const Login = () =>{
 
-const [login, setLogin] = useState({
+const {userLogin} = useContext(AuthContext);
+const navigate = useNavigate();
+
+
+const [loginData, setLoginData] = useState({
 email:'',
 password:'',
 });
 
+
+
 const addLoginHandler=(e)=>{
+  navigate('/');
 e.preventDefault();
-console.log(login);
+
+authService.login(loginData.email,loginData.password).then(authData=>{
+  console.log(authData);
+  userLogin(authData);
+  navigate('/');
+  
+})
+.catch(()=>{
+  navigate('404');
+})
 }
 
 const onChange=(e)=>{
-  setLogin(state=>({
+  setLoginData(state=>({
     ...state,
     [e.target.name]:e.target.value
   }))
@@ -34,10 +53,10 @@ const onChange=(e)=>{
                 name="email"
                 placeholder="Sokka@gmail.com"
                 onChange={onChange}
-                value={login.email}
+                value={loginData.email}
               />
               <label htmlFor="login-pass">Password:</label>
-              <input type="password" id="login-password" name="password" onChange={onChange} value={login.password}/>
+              <input type="password" id="login-password" name="password" onChange={onChange} value={loginData.password}/>
               <input type="submit" className="btn submit" defaultValue="Login" />
               <p className="field">
                 <span>

@@ -1,4 +1,4 @@
-import {request} from "./requester";
+import * as request from "./requester";
 
 const baseUrl='http://localhost:3030';
 
@@ -15,5 +15,5 @@ export const getAll = async() =>{
 */
 
 
-export const getAll = async() => request(`${baseUrl}/data/games`);
+export const getAll = async() => request.get(`${baseUrl}/data/games`);
 
