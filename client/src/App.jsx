@@ -11,12 +11,13 @@ import GameDetails from './components/GameDetails/GameDetails'
 import CreateGame from './components/CreateGame/CreateGame'
 import * as services from '../src/services/gameServices'
 import { AuthContext } from './context/AuthContext'
+import { useLocalStorage } from './hooks/useLocalStorage'
 import './App.css'
 
 
 function App() {
   const [games, setGames] = useState([]);
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useLocalStorage('auth',{});
  
 
 const navigate = useNavigate();
