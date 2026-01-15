@@ -13,5 +13,6 @@ export const logout = (acessToken) =>
         }
     })
    
-  
+  export const register = (email,password) => 
+    request.post(`${baseUrl}/users/register`,{email, password});
    
