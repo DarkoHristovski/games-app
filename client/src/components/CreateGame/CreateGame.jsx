@@ -1,8 +1,9 @@
 import { useState } from "react";
-
+import * as gameService from '../../services/gameServices'
 
 const CreateGame = ({addGame}) =>{
  
+
 const[newGame, setNewGame]= useState({
     title:'',
     category:'',
@@ -15,7 +16,8 @@ const[newGame, setNewGame]= useState({
 
 const addEventhandler = (e) =>{
 e.preventDefault();
-addGame(newGame);
+gameService.create(newGame)
+.then(result=>addGame(result))
 }
 
 const onChange=(e)=>{

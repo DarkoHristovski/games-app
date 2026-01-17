@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Header = () => {
     const { user } = useContext(AuthContext);
-
+console.log(user)
     const isAuthenticated = !!user.email;
 
     return (
