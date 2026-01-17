@@ -10,7 +10,8 @@ const Logout = () =>{
 const navigate = useNavigate();
 
 const {user, userLogout}=useContext(AuthContext);
-console.log(userLogout)
+console.log(userLogout);
+
     useEffect(()=>{
         authService.logout(user.accessToken)
         .then(()=>{

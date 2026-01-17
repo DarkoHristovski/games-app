@@ -11,6 +11,10 @@ const CatlogItem = ({games}) =>{
           <Link to={`/catalog/${games._id}`} className="details-button">
             Details
           </Link>
+         <br />
+          <Link style={{'marginLeft':'120px'}} to={`/games/${games._id}/edit`} className="details-button">
+    Edit
+          </Link>
         </div>
       </div>
     )
